@@ -1,0 +1,11 @@
+name: termdo
+
+services:
+  auth-api:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+
+networks:
+  default:
+    name: termdo-net

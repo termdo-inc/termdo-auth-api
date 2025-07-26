@@ -19,14 +19,20 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "build": "tsc --build",
-    "start": "node out/main.js"
+    "start": "node out/main.js --env-file=.env"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/pg": "^8.15.4",
     "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^16.3.0",
