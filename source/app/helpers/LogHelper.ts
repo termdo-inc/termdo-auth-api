@@ -1,25 +1,9 @@
 import type { IHelper } from "../interfaces/IHelper.js";
 
 export class LogHelper implements IHelper {
-  private static records: string[] = [];
-
-  public static getRecords(): Promise<string[]> {
-    return new Promise((resolve) => {
-      resolve(this.records);
-    });
-  }
-
-  public static deleteRecords(): Promise<void> {
-    return new Promise((resolve) => {
-      this.records = [];
-      resolve();
-    });
-  }
-
   public static log(message: string): void {
     const time = `[${this.getTime(new Date())}]`;
     const content = `[=]: ${message}`;
-    this.records.push(`${time} ${content}`);
     console.log(
       `${this.BEGIN}${this.FG_BR_CYAN}${this.END}${time}${this.BEGIN}${this.FG_DEFAULT}${this.END} ${content}${this.RESET}`,
     );
@@ -28,7 +12,6 @@ export class LogHelper implements IHelper {
   public static detail(message: string, level: number): void {
     const time = `[${this.getTime(new Date())}]`;
     const content = `${"     ".repeat(level)}[-]: ${message}`;
-    this.records.push(`${time} ${content}`);
     console.log(
       `${this.BEGIN}${this.FG_BR_CYAN}${this.END}${time}${this.BEGIN}${this.FG_DEFAULT};${this.DIM}${this.END} ${content}${this.RESET}`,
     );
@@ -37,7 +20,6 @@ export class LogHelper implements IHelper {
   public static system(message: string): void {
     const time = `[${this.getTime(new Date())}]`;
     const content = `[>]: ${message}`;
-    this.records.push(`${time} ${content}`);
     console.log(
       `${this.BEGIN}${this.FG_BR_CYAN}${this.END}${time}${this.BEGIN}${this.FG_MAGENTA}${this.END} ${content}${this.RESET}`,
     );
@@ -46,7 +28,6 @@ export class LogHelper implements IHelper {
   public static progress(message: string): void {
     const time = `[${this.getTime(new Date())}]`;
     const content = `[~]: ${message}`;
-    this.records.push(`${time} ${content}`);
     console.log(
       `${this.BEGIN}${this.FG_BR_CYAN}${this.END}${time}${this.BEGIN}${this.FG_CYAN}${this.END} ${content}${this.RESET}`,
     );
@@ -55,7 +36,6 @@ export class LogHelper implements IHelper {
   public static success(message: string): void {
     const time = `[${this.getTime(new Date())}]`;
     const content = `[+]: ${message}`;
-    this.records.push(`${time} ${content}`);
     console.log(
       `${this.BEGIN}${this.FG_BR_CYAN}${this.END}${time}${this.BEGIN}${this.FG_GREEN}${this.END} ${content}${this.RESET}`,
     );
@@ -64,7 +44,6 @@ export class LogHelper implements IHelper {
   public static info(message: string): void {
     const time = `[${this.getTime(new Date())}]`;
     const content = `[i]: ${message}`;
-    this.records.push(`${time} ${content}`);
     console.info(
       `${this.BEGIN}${this.FG_BR_CYAN}${this.END}${time}${this.BEGIN}${this.FG_BLUE}${this.END} ${content}${this.RESET}`,
     );
@@ -73,7 +52,6 @@ export class LogHelper implements IHelper {
   public static warning(message: string): void {
     const time = `[${this.getTime(new Date())}]`;
     const content = `[!]: ${message}`;
-    this.records.push(`${time} ${content}`);
     console.warn(
       `${this.BEGIN}${this.FG_BR_CYAN}${this.END}${time}${this.BEGIN}${this.FG_YELLOW}${this.END} ${content}${this.RESET}`,
     );
@@ -82,7 +60,6 @@ export class LogHelper implements IHelper {
   public static failure(name: string, message: string | null): void {
     const time = `[${this.getTime(new Date())}]`;
     const content = message === null ? `[x]: ${name}` : `[x]: ${name} - ${message}`;
-    this.records.push(`${time} ${content}`);
     console.error(
       `${this.BEGIN}${this.FG_BR_CYAN}${this.END}${time}${this.BEGIN}${this.FG_RED}${this.END} ${content}${this.RESET}`,
     );
