@@ -1,3 +1,4 @@
+import type { PoolClient } from "pg";
 import type { ProviderResponse } from "../../@types/responses.js";
 import { DbConstants } from "../../app/constants/DbConstants.js";
 import type { IProvider } from "../../app/interfaces/IProvider.js";
@@ -9,8 +10,9 @@ import { AccountQueries } from "../queries/AccountQueries.js";
 
 export class AccountProvider implements IProvider {
   public async getAccount(accountId: number): Promise<ProviderResponse<AccountModel | null>> {
-    const client = await DbModule.instance.getClient();
+    let client: PoolClient | null = null;
     try {
+      client = await DbModule.instance.getClient();
       await client.query(DbConstants.BEGIN);
       const results = await client.query(AccountQueries.GET_ACCOUNT_$ACID, [accountId]);
       const record: unknown = results.rows[0];
@@ -19,18 +21,19 @@ export class AccountProvider implements IProvider {
       }
       return await ResponseUtil.providerResponse(client, AccountModel.fromRecord(record));
     } catch (error) {
-      await client.query(DbConstants.ROLLBACK);
+      await client?.query(DbConstants.ROLLBACK);
       throw error;
     } finally {
-      client.release();
+      client?.release();
     }
   }
 
   public async getAccountByUsername(
     username: string,
   ): Promise<ProviderResponse<AccountModel | null>> {
-    const client = await DbModule.instance.getClient();
+    let client: PoolClient | null = null;
     try {
+      client = await DbModule.instance.getClient();
       await client.query(DbConstants.BEGIN);
       const results = await client.query(AccountQueries.GET_ACCOUNT_$UNAME, [username]);
       const record: unknown = results.rows[0];
@@ -39,10 +42,10 @@ export class AccountProvider implements IProvider {
       }
       return await ResponseUtil.providerResponse(client, AccountModel.fromRecord(record));
     } catch (error) {
-      await client.query(DbConstants.ROLLBACK);
+      await client?.query(DbConstants.ROLLBACK);
       throw error;
     } finally {
-      client.release();
+      client?.release();
     }
   }
 }
