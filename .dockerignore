@@ -6,10 +6,12 @@
 
 # To: Lint
 !source/
+!source/**
 !eslint.config.js
 
 # To: Build
 !source/
+!source/**
 !package.json
 !tsconfig.json
 
