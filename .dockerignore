@@ -1,0 +1,17 @@
+*
+
+# To: Install
+!package-lock.json
+!package.json
+
+# To: Lint
+!source/
+!eslint.config.js
+
+# To: Build
+!source/
+!package.json
+!tsconfig.json
+
+# To: Launch
+!package.json

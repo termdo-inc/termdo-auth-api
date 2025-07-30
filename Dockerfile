@@ -1,23 +1,45 @@
-# >-----< Build Stage >-----< #
-FROM node:24.4.1-alpine AS builder
+FROM node:24.4.1-alpine AS base
 
-WORKDIR /app
+# >-----< Install Stage >-----< #
+FROM base AS installer
 
-COPY package*.json ./
+WORKDIR /app/
+
+COPY package-lock.json .
+COPY package.json .
+
 RUN npm clean-install
 
-COPY . .
+# >-----< Lint Stage >-----< #
+FROM base AS linter
 
-RUN npm run build
+WORKDIR /app/
 
-# >-----< Production Stage >-----< #
-FROM node:24.4.1-alpine AS production
+COPY --from=installer /app/node_modules/ node_modules/
+COPY source/ source/
+COPY eslint.config.js .
 
-WORKDIR /app
+RUN npm run lint
 
-COPY --from=builder /app/out ./out
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/node_modules ./node_modules
-RUN npm prune --omit=dev
+# >-----< Build Stage >-----< #
+FROM base AS builder
 
-CMD ["npm", "start"]
+WORKDIR /app/
+
+COPY --from=installer /app/node_modules/ node_modules/
+COPY source/ source/
+COPY package.json .
+COPY tsconfig.json .
+
+RUN npm run build && npm prune --omit=dev
+
+# >-----< Launch Stage >-----< #
+FROM base AS launcher
+
+WORKDIR /app/
+
+COPY --from=builder /app/node_modules/ node_modules/
+COPY --from=builder /app/out/ out/
+COPY package.json .
+
+ENTRYPOINT ["npm", "start"]
