@@ -1,3 +1,4 @@
+import type { PoolClient } from "pg";
 import type {
   ControllerResponse,
   ManagerResponse,
@@ -6,8 +7,8 @@ import type {
   ProviderResponse,
 } from "../../@types/responses.js";
 import type { Token } from "../../@types/tokens.js";
+import { ServerConfig } from "../configs/ServerConfig.js";
 import { DbConstants } from "../constants/DbConstants.js";
-import { ServerConstants } from "../constants/ServerConstants.js";
 import { LogHelper } from "../helpers/LogHelper.js";
 import type { IModel } from "../interfaces/IModel.js";
 import type { IParams } from "../interfaces/IParams.js";
@@ -35,7 +36,7 @@ export class ResponseUtil implements IUtil {
     log = true,
   ): typeof res {
     const body = {
-      hostName: ServerConstants.HOST,
+      hostName: ServerConfig.HOST,
       httpStatus,
       serverError,
       clientErrors,
@@ -89,10 +90,11 @@ export class ResponseUtil implements IUtil {
   }
 
   public static async providerResponse<D extends IModel | boolean | null>(
+    client: PoolClient,
     data: D,
     log = false,
   ): Promise<ProviderResponse<D>> {
-    await DbConstants.POOL.query(DbConstants.COMMIT);
+    await client.query(DbConstants.COMMIT);
     if (log) {
       LogHelper.log("Provider response was:");
       LogHelper.detail(JSON.stringify(data, null, 2), 1);

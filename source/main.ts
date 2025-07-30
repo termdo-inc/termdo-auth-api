@@ -1,5 +1,5 @@
 import express, { type Express } from "express";
-import { ServerConstants } from "./app/constants/ServerConstants.js";
+import { ServerConfig } from "./app/configs/ServerConfig.js";
 import { LogHelper } from "./app/helpers/LogHelper.js";
 import { AuthMiddleware } from "./app/middlewares/AuthMiddleware.js";
 import { CatcherMiddleware } from "./app/middlewares/CatcherMiddleware.js";
@@ -51,6 +51,6 @@ app.use(FailureMiddleware.serverFailure.bind(FailureMiddleware));
 void PoolTest.run();
 
 // Server
-app.listen(ServerConstants.PORT, (): void => {
-  LogHelper.progress(`Server listening on port ${ServerConstants.PORT}...`);
+app.listen(ServerConfig.PORT, (): void => {
+  LogHelper.progress(`Server listening on port ${ServerConfig.PORT}...`);
 });
