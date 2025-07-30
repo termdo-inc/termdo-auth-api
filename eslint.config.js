@@ -5,9 +5,9 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config([
-  globalIgnores(["out"]),
+  globalIgnores(["out/"]),
   {
-    files: ["source/**/*", "vite.config.ts"],
+    files: ["source/**/*"],
     extends: [
       eslint.configs.all,
       tseslint.configs.strictTypeChecked,
@@ -15,8 +15,8 @@ export default tseslint.config([
       eslintConfigPrettier,
     ],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 2024,
+      globals: globals.node,
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
