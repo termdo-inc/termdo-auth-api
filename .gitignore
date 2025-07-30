@@ -1,5 +1,8 @@
 *
 
+# Git files
+!.gitignore
+
 # Repository files
 !LICENSE.md
 !README.md
@@ -16,5 +19,10 @@
 !.editorconfig
 !.prettierignore
 !.prettierrc
-!.eslint.config.js
+!eslint.config.js
 !tsconfig.json
+
+# Docker files
+!.dockerignore
+!compose.yaml
+!Dockerfile
