@@ -8,7 +8,7 @@
 !README.md
 
 # Source files
-!source/
+!source/**
 
 # Node files
 !.nvmrc
@@ -21,3 +21,8 @@
 !.prettierrc
 !eslint.config.js
 !tsconfig.json
+
+# Docker files
+!.dockerignore
+!compose.yaml
+!Dockerfile
