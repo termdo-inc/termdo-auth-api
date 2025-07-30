@@ -7,7 +7,7 @@ import type {
   ProviderResponse,
 } from "../../@types/responses.js";
 import type { Token } from "../../@types/tokens.js";
-import { ServerConfig } from "../configs/ServerConfig.js";
+import { AppConfig } from "../configs/AppConfig.js";
 import { DbConstants } from "../constants/DbConstants.js";
 import { LogHelper } from "../helpers/LogHelper.js";
 import type { IModel } from "../interfaces/IModel.js";
@@ -36,7 +36,7 @@ export class ResponseUtil implements IUtil {
     log = true,
   ): typeof res {
     const body = {
-      hostName: ServerConfig.HOST,
+      host: AppConfig.HOST,
       httpStatus,
       serverError,
       clientErrors,

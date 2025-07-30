@@ -12,7 +12,7 @@ export type ControllerResponse<
   D extends IResponse | null,
   T extends Token | null,
 > = ExpressResponse<{
-  hostName: string;
+  host: string;
   httpStatus: HttpStatus;
   serverError: ServerError | null;
   clientErrors: ClientError[];
