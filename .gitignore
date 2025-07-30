@@ -3,7 +3,7 @@
 # Git files
 !.gitignore
 
-# Repository files
+# Repo files
 !LICENSE.md
 !README.md
 
