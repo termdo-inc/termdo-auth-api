@@ -18,8 +18,3 @@
 !.prettierrc
 !.eslint.config.js
 !tsconfig.json
-
-# Docker files
-!.dockerignore
-!compose.yaml
-!Dockerfile
