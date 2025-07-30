@@ -1,4 +1,25 @@
-node_modules
-out
+*
 
-.env
+# Repository files
+!LICENSE.md
+!README.md
+
+# Source files
+!source/
+
+# Node files
+!.nvmrc
+!package-lock.json
+!package.json
+
+# Config files
+!.editorconfig
+!.prettierignore
+!.prettierrc
+!.eslint.config.js
+!tsconfig.json
+
+# Docker files
+!.dockerignore
+!compose.yaml
+!Dockerfile
