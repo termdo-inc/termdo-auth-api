@@ -14,13 +14,6 @@
   "author": "Emrecan Karaçayır",
   "type": "module",
   "main": "out/main.js",
-  "scripts": {
-    "clean": "rm -rf out",
-    "format": "prettier --write .",
-    "lint": "eslint .",
-    "build": "tsc --build",
-    "start": "node --env-file=.env out/main.js"
-  },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
@@ -39,5 +32,12 @@
     "prettier": "^3.6.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0"
+  },
+  "scripts": {
+    "clean": "rm -rf out",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "build": "tsc --build",
+    "dev": "node --env-file=.env out/main.js"
   }
 }

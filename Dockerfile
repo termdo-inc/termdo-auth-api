@@ -40,6 +40,5 @@ WORKDIR /app/
 
 COPY --from=builder /app/node_modules/ node_modules/
 COPY --from=builder /app/out/ out/
-COPY package.json .
 
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["node", "out/main.js"]
