@@ -12,7 +12,9 @@ import { SignupResponse } from "./schemas/SignupResponse.js";
 export class SignupManager implements IManager {
   public constructor(private readonly provider = new SignupProvider()) {}
 
-  public async postSignup(request: SignupRequest): Promise<ManagerResponse<SignupResponse | null>> {
+  public async postSignup(
+    request: SignupRequest,
+  ): Promise<ManagerResponse<SignupResponse | null>> {
     if ((await this.provider.getAccountByUsername(request.username)) !== null) {
       return ResponseUtil.managerResponse(
         new HttpStatus(HttpStatusCode.CONFLICT),

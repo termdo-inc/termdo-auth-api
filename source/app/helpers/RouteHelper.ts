@@ -1,7 +1,11 @@
 import type { ControllerResponse } from "../../@types/responses.js";
 import type { Token } from "../../@types/tokens.js";
 import type { FullRoute, Pair } from "../../@types/utils.js";
-import type { ExpressNextFunction, ExpressRequest, ExpressRouter } from "../../@types/wrappers.js";
+import type {
+  ExpressNextFunction,
+  ExpressRequest,
+  ExpressRouter,
+} from "../../@types/wrappers.js";
 import { Method } from "../enums/Method.js";
 import { RouteType } from "../enums/RouteType.js";
 import type { IHelper } from "../interfaces/IHelper.js";
@@ -9,7 +13,10 @@ import type { IResponse } from "../interfaces/IResponse.js";
 import { CorruptedRouteInfoError } from "../schemas/ServerError.js";
 
 export class RouteHelper implements IHelper {
-  private static readonly routeInfo = new Map<string, Pair<RouteType, Method[]>>();
+  private static readonly routeInfo = new Map<
+    string,
+    Pair<RouteType, Method[]>
+  >();
 
   public static buildRoute<D extends IResponse | null, T extends Token | null>(
     router: ExpressRouter,
@@ -61,10 +68,14 @@ export class RouteHelper implements IHelper {
   public static getEndpoints(): Promise<string[]> {
     return new Promise((resolve) => {
       const endpoints: string[] = [];
-      RouteHelper.routeInfo.forEach((info: Pair<string, Method[]>, route: string) => {
-        const methodsList = info[1].map((method) => `'${method}'`).join(", ");
-        endpoints.push(`Route: '${route}' | Type: ${info[0]} | Methods: [${methodsList}]`);
-      });
+      RouteHelper.routeInfo.forEach(
+        (info: Pair<string, Method[]>, route: string) => {
+          const methodsList = info[1].map((method) => `'${method}'`).join(", ");
+          endpoints.push(
+            `Route: '${route}' | Type: ${info[0]} | Methods: [${methodsList}]`,
+          );
+        },
+      );
       resolve(endpoints);
     });
   }
@@ -73,7 +84,9 @@ export class RouteHelper implements IHelper {
     const routeParts = url.split("/");
     let methods: Method[] | null = null;
     this.routeInfo.forEach((info: Pair<string, Method[]>, apiRoute: string) => {
-      const apiRouteParts = apiRoute.split("/").filter((part: string) => part !== "");
+      const apiRouteParts = apiRoute
+        .split("/")
+        .filter((part: string) => part !== "");
       if (apiRouteParts.length !== routeParts.length) {
         return;
       }

@@ -20,7 +20,9 @@ export class AccountModel implements IModel {
     if (!this.areValidModels(records)) {
       throw new ModelMismatchError(records);
     }
-    return records.map((record: unknown): AccountModel => this.fromRecord(record));
+    return records.map(
+      (record: unknown): AccountModel => this.fromRecord(record),
+    );
   }
 
   protected static isValidModel(data: unknown): data is AccountModel {

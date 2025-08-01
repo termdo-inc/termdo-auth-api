@@ -1,5 +1,8 @@
 import type { MiddlewareResponse } from "../../@types/responses.js";
-import type { ExpressNextFunction, ExpressRequest } from "../../@types/wrappers.js";
+import type {
+  ExpressNextFunction,
+  ExpressRequest,
+} from "../../@types/wrappers.js";
 import { AuthModule } from "../../modules/auth/module.js";
 import { LocalsConstants } from "../constants/LocalsConstants.js";
 import { HttpStatus, HttpStatusCode } from "../schemas/HttpStatus.js";

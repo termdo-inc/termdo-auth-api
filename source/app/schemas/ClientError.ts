@@ -99,11 +99,15 @@ const clientErrorMessages: Record<ClientErrorCode, string> = {
   // REQUEST ERRORS (8XXXX - 9XXXX)
   //  *  8XXXX: Route errors
   //  *  *  800XX: /login errors
-  [ClientErrorCode.ACCOUNT_NOT_FOUND]: "No account was found with the provided phone.",
+  [ClientErrorCode.ACCOUNT_NOT_FOUND]:
+    "No account was found with the provided phone.",
   [ClientErrorCode.INCORRECT_PASSWORD]: "Provided password was incorrect.",
   //  *  *  801XX: /signup errors
-  [ClientErrorCode.FORBIDDEN_ACCOUNT_TYPE]: "Provided account type can't be signed up.",
-  [ClientErrorCode.ACCOUNT_ALREADY_EXISTS]: "An account already exists with the provided phone.",
+  [ClientErrorCode.FORBIDDEN_ACCOUNT_TYPE]:
+    "Provided account type can't be signed up.",
+  [ClientErrorCode.ACCOUNT_ALREADY_EXISTS]:
+    "An account already exists with the provided phone.",
   //  *  9XXXX: Catch-all errors
-  [ClientErrorCode.RESOURCE_NOT_FOUND]: "The requested resource couldn't be found.",
+  [ClientErrorCode.RESOURCE_NOT_FOUND]:
+    "The requested resource couldn't be found.",
 };

@@ -1,29 +1,32 @@
 *
 
-# Git files
+# >-----< INCLUDES >-----< #
+
+# [+]: Git files
 !.gitignore
 
-# Repo files
+# [+]: Repo files
 !LICENSE.md
 !README.md
 
-# Source files
+# [+]: Source files
 !source/
 !source/**
 
-# Node files
+# [+]: Node files
 !.nvmrc
 !package-lock.json
 !package.json
 
-# Config files
+# [+]: Config files
 !.editorconfig
 !.prettierignore
-!.prettierrc
 !eslint.config.js
 !tsconfig.json
 
-# Docker files
+# [+]: Docker files
 !.dockerignore
 !compose.yaml
 !Dockerfile
+
+# >-----< EXCLUDES >-----< #

@@ -1,6 +1,9 @@
 import type { ControllerResponse } from "../../@types/responses.js";
 import type { Token } from "../../@types/tokens.js";
-import type { ExpressNextFunction, ExpressRequest } from "../../@types/wrappers.js";
+import type {
+  ExpressNextFunction,
+  ExpressRequest,
+} from "../../@types/wrappers.js";
 import { PayloadHelper } from "../../app/helpers/PayloadHelper.js";
 import type { IController } from "../../app/interfaces/IController.js";
 import { HttpStatus, HttpStatusCode } from "../../app/schemas/HttpStatus.js";

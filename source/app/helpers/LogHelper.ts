@@ -59,7 +59,8 @@ export class LogHelper implements IHelper {
 
   public static failure(name: string, message: string | null): void {
     const time = `[${this.getTime(new Date())}]`;
-    const content = message === null ? `[x]: ${name}` : `[x]: ${name} - ${message}`;
+    const content =
+      message === null ? `[x]: ${name}` : `[x]: ${name} - ${message}`;
     console.error(
       `${this.BEGIN}${this.FG_BR_CYAN}${this.END}${time}${this.BEGIN}${this.FG_RED}${this.END} ${content}${this.RESET}`,
     );

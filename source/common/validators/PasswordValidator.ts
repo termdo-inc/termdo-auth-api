@@ -12,10 +12,14 @@ export class PasswordValidator implements IValidator {
         AccountRules.PASSWORD_MAX_LENGTH,
       )
     ) {
-      validationErrors.push(new ClientError(ClientErrorCode.INVALID_PASSWORD_LENGTH));
+      validationErrors.push(
+        new ClientError(ClientErrorCode.INVALID_PASSWORD_LENGTH),
+      );
     }
     if (!StringUtil.matchesRegex(data, AccountRules.PASSWORD_REGEX)) {
-      validationErrors.push(new ClientError(ClientErrorCode.INVALID_PASSWORD_CONTENT));
+      validationErrors.push(
+        new ClientError(ClientErrorCode.INVALID_PASSWORD_CONTENT),
+      );
     }
   }
 }

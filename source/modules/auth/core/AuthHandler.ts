@@ -2,7 +2,10 @@ import jwt from "jsonwebtoken";
 import type { Token, TokenPayload } from "../../../@types/tokens.js";
 import { PayloadHelper } from "../../../app/helpers/PayloadHelper.js";
 import type { IHandler } from "../../../app/interfaces/IHandler.js";
-import { ClientError, ClientErrorCode } from "../../../app/schemas/ClientError.js";
+import {
+  ClientError,
+  ClientErrorCode,
+} from "../../../app/schemas/ClientError.js";
 import { AuthConstants } from "../app/constants/AuthConstants.js";
 import { TokenHelper } from "../app/helpers/TokenHelper.js";
 import { AuthProvider } from "./AuthProvider.js";
@@ -12,7 +15,10 @@ export class AuthHandler implements IHandler {
 
   public async verify(token: Token): Promise<ClientError[]> {
     try {
-      const payload = jwt.verify(token, AuthConstants.JWT_SECRET) as TokenPayload;
+      const payload = jwt.verify(
+        token,
+        AuthConstants.JWT_SECRET,
+      ) as TokenPayload;
       if (!PayloadHelper.isValidPayload(payload)) {
         return [new ClientError(ClientErrorCode.INVALID_TOKEN)];
       }

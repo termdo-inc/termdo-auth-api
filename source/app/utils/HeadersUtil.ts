@@ -13,12 +13,18 @@ export class HeadersUtil implements IUtil {
     const preliminaryData: unknown = req.headers;
     // >----------< EXISTENCE VALIDATION >----------<
     if (!ProtoUtil.isProtovalid(preliminaryData)) {
-      return ResponseUtil.parserResponse([new ClientError(ClientErrorCode.MISSING_HEADERS)], null);
+      return ResponseUtil.parserResponse(
+        [new ClientError(ClientErrorCode.MISSING_HEADERS)],
+        null,
+      );
     }
     const protovalidData: unknown = preliminaryData;
     // >----------< SCHEMATIC VALIDATION >----------<
     if (!HeadersUtil.isBlueprint(protovalidData, "authorization", "string")) {
-      return ResponseUtil.parserResponse([new ClientError(ClientErrorCode.INVALID_HEADERS)], null);
+      return ResponseUtil.parserResponse(
+        [new ClientError(ClientErrorCode.INVALID_HEADERS)],
+        null,
+      );
     }
     const blueprintData: Token = protovalidData.authorization!;
     // >----------< PHYSICAL VALIDATION >----------<
@@ -45,7 +51,8 @@ export class HeadersUtil implements IUtil {
         return (
           value === undefined ||
           typeof value === "string" ||
-          (Array.isArray(value) && value.every((item) => typeof item === "string"))
+          (Array.isArray(value) &&
+            value.every((item) => typeof item === "string"))
         );
       })
     ) {

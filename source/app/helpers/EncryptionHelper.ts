@@ -7,7 +7,10 @@ export class EncryptionHelper implements IHelper {
     return await bcrypt.hash(data, salt);
   }
 
-  public static async isMatching(data: string, encryptedData: string): Promise<boolean> {
+  public static async isMatching(
+    data: string,
+    encryptedData: string,
+  ): Promise<boolean> {
     return await bcrypt.compare(data, encryptedData);
   }
 }

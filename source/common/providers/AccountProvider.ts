@@ -9,17 +9,24 @@ import { AccountModel } from "../models/AccountModel.js";
 import { AccountQueries } from "../queries/AccountQueries.js";
 
 export class AccountProvider implements IProvider {
-  public async getAccount(accountId: number): Promise<ProviderResponse<AccountModel | null>> {
+  public async getAccount(
+    accountId: number,
+  ): Promise<ProviderResponse<AccountModel | null>> {
     let client: PoolClient | null = null;
     try {
       client = await DbModule.instance.getClient();
       await client.query(DbConstants.BEGIN);
-      const results = await client.query(AccountQueries.GET_ACCOUNT_$ACID, [accountId]);
+      const results = await client.query(AccountQueries.GET_ACCOUNT_$ACID, [
+        accountId,
+      ]);
       const record: unknown = results.rows[0];
       if (!ProtoUtil.isProtovalid(record)) {
         return await ResponseUtil.providerResponse(client, null);
       }
-      return await ResponseUtil.providerResponse(client, AccountModel.fromRecord(record));
+      return await ResponseUtil.providerResponse(
+        client,
+        AccountModel.fromRecord(record),
+      );
     } catch (error) {
       await client?.query(DbConstants.ROLLBACK);
       throw error;
@@ -35,12 +42,17 @@ export class AccountProvider implements IProvider {
     try {
       client = await DbModule.instance.getClient();
       await client.query(DbConstants.BEGIN);
-      const results = await client.query(AccountQueries.GET_ACCOUNT_$UNAME, [username]);
+      const results = await client.query(AccountQueries.GET_ACCOUNT_$UNAME, [
+        username,
+      ]);
       const record: unknown = results.rows[0];
       if (!ProtoUtil.isProtovalid(record)) {
         return await ResponseUtil.providerResponse(client, null);
       }
-      return await ResponseUtil.providerResponse(client, AccountModel.fromRecord(record));
+      return await ResponseUtil.providerResponse(
+        client,
+        AccountModel.fromRecord(record),
+      );
     } catch (error) {
       await client?.query(DbConstants.ROLLBACK);
       throw error;

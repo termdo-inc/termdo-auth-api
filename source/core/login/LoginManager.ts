@@ -12,7 +12,9 @@ import { LoginResponse } from "./schemas/LoginResponse.js";
 export class LoginManager implements IManager {
   public constructor(private readonly provider = new LoginProvider()) {}
 
-  public async postLogin(request: LoginRequest): Promise<ManagerResponse<LoginResponse | null>> {
+  public async postLogin(
+    request: LoginRequest,
+  ): Promise<ManagerResponse<LoginResponse | null>> {
     const account = await this.provider.getAccountByUsername(request.username);
     if (account === null) {
       return ResponseUtil.managerResponse(
@@ -22,7 +24,9 @@ export class LoginManager implements IManager {
         null,
       );
     }
-    if (!(await EncryptionHelper.isMatching(request.password, account.password))) {
+    if (
+      !(await EncryptionHelper.isMatching(request.password, account.password))
+    ) {
       return ResponseUtil.managerResponse(
         new HttpStatus(HttpStatusCode.CONFLICT),
         null,

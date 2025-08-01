@@ -12,10 +12,14 @@ export class UsernameValidator implements IValidator {
         AccountRules.USERNAME_MAX_LENGTH,
       )
     ) {
-      validationErrors.push(new ClientError(ClientErrorCode.INVALID_USERNAME_LENGTH));
+      validationErrors.push(
+        new ClientError(ClientErrorCode.INVALID_USERNAME_LENGTH),
+      );
     }
     if (!StringUtil.matchesRegex(data, AccountRules.USERNAME_REGEX)) {
-      validationErrors.push(new ClientError(ClientErrorCode.INVALID_USERNAME_CONTENT));
+      validationErrors.push(
+        new ClientError(ClientErrorCode.INVALID_USERNAME_CONTENT),
+      );
     }
   }
 }

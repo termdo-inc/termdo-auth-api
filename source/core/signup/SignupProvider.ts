@@ -24,12 +24,15 @@ export class SignupProvider implements IProvider {
     let client: PoolClient | null = null;
     try {
       client = await DbModule.instance.getClient();
-      const results = await client.query(AccountQueries.INSERT_ACCOUNT_RT_$UNAME_$PSWRD, [
-        username,
-        password,
-      ]);
+      const results = await client.query(
+        AccountQueries.INSERT_ACCOUNT_RT_$UNAME_$PSWRD,
+        [username, password],
+      );
       const record: unknown = results.rows[0];
-      return await ResponseUtil.providerResponse(client, AccountModel.fromRecord(record));
+      return await ResponseUtil.providerResponse(
+        client,
+        AccountModel.fromRecord(record),
+      );
     } catch (error) {
       await client?.query(DbConstants.ROLLBACK);
       throw error;

@@ -6,11 +6,15 @@ import { ClientError, ClientErrorCode } from "../../app/schemas/ClientError.js";
 export class AuthValidator implements IValidator {
   public static validate(data: Token, validationErrors: ClientError[]): void {
     if (!data.startsWith(TokenConstants.HEADER_PREFIX)) {
-      validationErrors.push(new ClientError(ClientErrorCode.INVALID_AUTHORIZATION_HEADER));
+      validationErrors.push(
+        new ClientError(ClientErrorCode.INVALID_AUTHORIZATION_HEADER),
+      );
     }
     const token: unknown = data.split(" ")[1];
     if (typeof token !== "string") {
-      validationErrors.push(new ClientError(ClientErrorCode.INVALID_AUTHORIZATION_HEADER));
+      validationErrors.push(
+        new ClientError(ClientErrorCode.INVALID_AUTHORIZATION_HEADER),
+      );
     }
   }
 }

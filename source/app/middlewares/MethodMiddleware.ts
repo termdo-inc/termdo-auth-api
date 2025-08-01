@@ -1,5 +1,8 @@
 import type { MiddlewareResponse } from "../../@types/responses.js";
-import type { ExpressNextFunction, ExpressRequest } from "../../@types/wrappers.js";
+import type {
+  ExpressNextFunction,
+  ExpressRequest,
+} from "../../@types/wrappers.js";
 import { Method } from "../enums/Method.js";
 import { RouteHelper } from "../helpers/RouteHelper.js";
 import type { IMiddleware } from "../interfaces/IMiddleware.js";

@@ -1,7 +1,10 @@
 import type { ParserResponse } from "../../../@types/responses.js";
 import type { ExpressRequest } from "../../../@types/wrappers.js";
 import type { IRequest } from "../../../app/interfaces/IRequest.js";
-import { ClientError, ClientErrorCode } from "../../../app/schemas/ClientError.js";
+import {
+  ClientError,
+  ClientErrorCode,
+} from "../../../app/schemas/ClientError.js";
 import { ProtoUtil } from "../../../app/utils/ProtoUtil.js";
 import { ResponseUtil } from "../../../app/utils/ResponseUtil.js";
 import { PasswordValidator } from "../../../common/validators/PasswordValidator.js";
@@ -13,16 +16,24 @@ export class SignupRequest implements IRequest {
     public readonly password: string,
   ) {}
 
-  public static parse(req: ExpressRequest): ParserResponse<SignupRequest | null> {
+  public static parse(
+    req: ExpressRequest,
+  ): ParserResponse<SignupRequest | null> {
     const preliminaryData: unknown = req.body;
     // >----------< EXISTENCE VALIDATION >----------<
     if (!ProtoUtil.isProtovalid(preliminaryData)) {
-      return ResponseUtil.parserResponse([new ClientError(ClientErrorCode.MISSING_BODY)], null);
+      return ResponseUtil.parserResponse(
+        [new ClientError(ClientErrorCode.MISSING_BODY)],
+        null,
+      );
     }
     const protovalidData: unknown = preliminaryData;
     // >----------< SCHEMATIC VALIDATION >----------<
     if (!SignupRequest.isBlueprint(protovalidData)) {
-      return ResponseUtil.parserResponse([new ClientError(ClientErrorCode.INVALID_BODY)], null);
+      return ResponseUtil.parserResponse(
+        [new ClientError(ClientErrorCode.INVALID_BODY)],
+        null,
+      );
     }
     const blueprintData: SignupRequest = protovalidData;
     // >----------< PHYSICAL VALIDATION >----------<
@@ -39,6 +50,9 @@ export class SignupRequest implements IRequest {
       return false;
     }
     const blueprint = obj as SignupRequest;
-    return typeof blueprint.username === "string" && typeof blueprint.password === "string";
+    return (
+      typeof blueprint.username === "string" &&
+      typeof blueprint.password === "string"
+    );
   }
 }

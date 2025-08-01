@@ -72,7 +72,14 @@ export class ResponseUtil implements IUtil {
     serverError: ServerError | null,
     clientErrors: ClientError[],
   ): typeof res {
-    return this.controllerResponse(res, httpStatus, serverError, clientErrors, null, null);
+    return this.controllerResponse(
+      res,
+      httpStatus,
+      serverError,
+      clientErrors,
+      null,
+      null,
+    );
   }
 
   public static managerResponse<D extends IResponse | null>(
