@@ -1,19 +1,22 @@
 *
 
-# To: Install
+# >-----< INCLUDES >-----< #
+
+# [+]: Install stage
 !package-lock.json
 !package.json
 
-# To: Lint
+# [+]: Lint stage
 !source/
 !source/**
 !eslint.config.js
 
-# To: Build
+# [+]: Build stage
 !source/
 !source/**
 !package.json
 !tsconfig.json
 
-# To: Launch
-!package.json
+# [+]: Launch stage
+
+# >-----< EXCLUDES >-----< #

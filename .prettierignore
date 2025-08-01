@@ -1,2 +1,24 @@
-node_modules/
-out/
+*
+
+# >-----< INCLUDES >-----< #
+
+# [+]: Repo files
+!LICENSE.md
+!README.md
+
+# [+]: Source files
+!source/
+!source/**
+
+# [+]: Node files
+!package-lock.json
+!package.json
+
+# [+]: Config files
+!eslint.config.js
+!tsconfig.json
+
+# [+]: Docker files
+!compose.yaml
+
+# >-----< EXCLUDES >-----< #
