@@ -1,6 +1,11 @@
-FROM node:24.4.1-alpine AS base
+# >-----< CONFIG STAGE >-----< #
 
-# >-----< Install Stage >-----< #
+# >-----< BASE STAGE >-----< #
+
+FROM node:24.4-alpine AS base
+
+# >-----< INSTALL STAGE >-----< #
+
 FROM base AS installer
 
 WORKDIR /app/
@@ -10,7 +15,8 @@ COPY package.json .
 
 RUN npm clean-install
 
-# >-----< Lint Stage >-----< #
+# >-----< LINT STAGE >-----< #
+
 FROM base AS linter
 
 WORKDIR /app/
@@ -21,7 +27,8 @@ COPY eslint.config.js .
 
 RUN npm run lint
 
-# >-----< Build Stage >-----< #
+# >-----< BUILD STAGE >-----< #
+
 FROM base AS builder
 
 WORKDIR /app/
@@ -33,7 +40,8 @@ COPY tsconfig.json .
 
 RUN npm run build && npm prune --omit=dev
 
-# >-----< Launch Stage >-----< #
+# >-----< LAUNCH STAGE >-----< #
+
 FROM base AS launcher
 
 WORKDIR /app/
