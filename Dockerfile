@@ -2,6 +2,8 @@
 
 FROM node:24.4-alpine AS base
 
+ENV CI=true
+
 RUN addgroup --system appgroup && \
   adduser --system --no-create-home --ingroup appgroup appuser
 
