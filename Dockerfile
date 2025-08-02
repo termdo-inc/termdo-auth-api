@@ -45,13 +45,11 @@ RUN npm run build && npm prune --omit=dev
 
 FROM base AS runner
 
+USER appuser
+
 WORKDIR /app/
 
-COPY --from=builder /app/node_modules/ node_modules/
-COPY --from=builder /app/out/ out/
-
-RUN chown -R appuser:appgroup /app/
-
-USER appuser
+COPY --from=builder --chown=appuser:appgroup /app/node_modules/ node_modules/
+COPY --from=builder --chown=appuser:appgroup /app/out/ out/
 
 ENTRYPOINT ["node", "out/main.js"]
