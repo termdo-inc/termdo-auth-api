@@ -22,7 +22,9 @@
 !.editorconfig
 !.prettierignore
 !eslint.config.js
+!tsconfig.dev.json
 !tsconfig.json
+!tsconfig.prod.json
 
 # [+]: Docker files
 !.dockerignore

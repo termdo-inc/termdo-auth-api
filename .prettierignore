@@ -16,9 +16,15 @@
 
 # [+]: Config files
 !eslint.config.js
+!tsconfig.dev.json
 !tsconfig.json
+!tsconfig.prod.json
 
 # [+]: Docker files
 !compose.yaml
 
 # >-----< EXCLUDES >-----< #
+
+# [-]: MacOS files
+.DS_Store
+**/.DS_Store

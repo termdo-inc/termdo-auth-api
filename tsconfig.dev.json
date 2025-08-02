@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    /* Projects */
+    "incremental": true,
+
+    /* Emit */
+    "sourceMap": true,
+    "removeComments": false
+  }
+}

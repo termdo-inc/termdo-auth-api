@@ -37,7 +37,8 @@
     "clean": "rm -rf out",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "build": "tsc --build",
+    "build-dev": "tsc --build tsconfig.dev.json",
+    "build-prod": "tsc --build tsconfig.prod.json",
     "dev": "node --env-file=.env out/main.js"
   }
 }

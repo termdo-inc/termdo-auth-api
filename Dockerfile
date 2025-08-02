@@ -27,6 +27,8 @@ WORKDIR /app/
 COPY --from=installer /app/node_modules/ node_modules/
 COPY source/ source/
 COPY eslint.config.js .
+COPY package.json .
+COPY tsconfig.json .
 
 RUN npm run lint
 
@@ -40,8 +42,10 @@ COPY --from=installer /app/node_modules/ node_modules/
 COPY source/ source/
 COPY package.json .
 COPY tsconfig.json .
+COPY tsconfig.prod.json .
 
-RUN npm run build && npm prune --omit=dev
+RUN npm run build-prod && \
+  npm prune --omit=dev
 
 # >-----< RUN STAGE >-----< #
 

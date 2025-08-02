@@ -21,6 +21,7 @@ export default tseslint.config([
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
+      sourceType: "module",
     },
     linterOptions: {
       reportUnusedDisableDirectives: true,
