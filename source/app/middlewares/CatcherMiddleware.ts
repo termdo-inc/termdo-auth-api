@@ -22,7 +22,7 @@ export class CatcherMiddleware implements IMiddleware {
         [new ClientError(ClientErrorCode.RESOURCE_NOT_FOUND)],
       );
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 }

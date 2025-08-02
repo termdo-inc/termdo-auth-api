@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config([
   globalIgnores(["out/"]),
   {
-    files: ["source/**/*"],
+    files: ["source/**/*.ts"],
     extends: [
       eslint.configs.all,
       tseslint.configs.strictTypeChecked,
@@ -26,7 +26,33 @@ export default tseslint.config([
       reportUnusedDisableDirectives: true,
     },
     rules: {
+      "@typescript-eslint/no-empty-object-type": [
+        "error",
+        {
+          allowInterfaces: "always",
+        },
+      ],
+      "@typescript-eslint/no-extraneous-class": "off",
+      "@typescript-eslint/no-invalid-void-type": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/restrict-template-expressions": "off",
+      "class-methods-use-this": "off",
+      "consistent-return": "off",
+      "id-length": "off",
+      "max-classes-per-file": "off",
+      "max-params": "off",
+      "max-statements": "off",
+      "new-cap": "off",
+      "no-console": "off",
+      "no-magic-numbers": "off",
+      "no-plusplus": "off",
+      "no-ternary": "off",
+      "no-undefined": "off",
+      "no-void": "off",
+      "one-var": "off",
+      "prefer-destructuring": "off",
       "sort-imports": "off",
+      "sort-keys": "off",
     },
   },
 ]);

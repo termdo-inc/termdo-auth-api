@@ -1,19 +1,5 @@
 import type { IResponse } from "../interfaces/IResponse.js";
 
-export class HttpStatus implements IResponse {
-  public readonly code: number;
-  public readonly message: string;
-
-  public constructor(httpStatusCode: HttpStatusCode) {
-    this.code = httpStatusCode;
-    this.message = httpStatusMessages[httpStatusCode];
-  }
-
-  public isSuccess(): boolean {
-    return this.code.toString().startsWith("2");
-  }
-}
-
 export enum HttpStatusCode {
   OK = 200,
   CREATED = 201,
@@ -39,3 +25,17 @@ export const httpStatusMessages: Record<HttpStatusCode, string> = {
   [HttpStatusCode.CONFLICT]: "Conflict",
   [HttpStatusCode.INTERNAL_SERVER_ERROR]: "Internal Server Error",
 };
+
+export class HttpStatus implements IResponse {
+  public readonly code: number;
+  public readonly message: string;
+
+  public constructor(httpStatusCode: HttpStatusCode) {
+    this.code = httpStatusCode;
+    this.message = httpStatusMessages[httpStatusCode];
+  }
+
+  public isSuccess(): boolean {
+    return this.code.toString().startsWith("2");
+  }
+}

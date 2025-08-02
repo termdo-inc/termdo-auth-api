@@ -2,12 +2,10 @@ import type { IModule } from "../../app/interfaces/IModule.js";
 import { DbHandler } from "./core/DbHandler.js";
 
 export class DbModule implements IModule {
-  private static sInstance: DbModule;
+  private static sInstance: DbModule | null = null;
 
   public static get instance(): DbModule {
-    if (DbModule.sInstance === undefined) {
-      DbModule.sInstance = new DbModule();
-    }
+    DbModule.sInstance ??= new DbModule();
     return DbModule.sInstance;
   }
 
@@ -15,5 +13,5 @@ export class DbModule implements IModule {
     this.getClient = this.handler.getClient.bind(this.handler);
   }
 
-  public readonly getClient: typeof this.handler.getClient;
+  public readonly getClient: DbHandler["getClient"];
 }

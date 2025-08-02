@@ -22,9 +22,9 @@ export class LoggerMiddleware implements IMiddleware {
         LogHelper.log("Request body was:");
         LogHelper.detail(JSON.stringify(req.body, null, 2), 1);
       }
-      return next();
+      next();
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 }

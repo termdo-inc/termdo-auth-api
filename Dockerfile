@@ -1,8 +1,9 @@
-# >-----< CONFIG STAGE >-----< #
-
 # >-----< BASE STAGE >-----< #
 
 FROM node:24.4-alpine AS base
+
+RUN addgroup --system appgroup && \
+  adduser --system --no-create-home --ingroup appgroup appuser
 
 # >-----< INSTALL STAGE >-----< #
 
@@ -40,13 +41,17 @@ COPY tsconfig.json .
 
 RUN npm run build && npm prune --omit=dev
 
-# >-----< LAUNCH STAGE >-----< #
+# >-----< RUN STAGE >-----< #
 
-FROM base AS launcher
+FROM base AS runner
 
 WORKDIR /app/
 
 COPY --from=builder /app/node_modules/ node_modules/
 COPY --from=builder /app/out/ out/
+
+RUN chown -R appuser:appgroup /app/
+
+USER appuser
 
 ENTRYPOINT ["node", "out/main.js"]

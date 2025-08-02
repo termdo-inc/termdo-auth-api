@@ -14,6 +14,6 @@ export class StringUtil implements IUtil {
   }
 
   public static isIntParsable(str: string): boolean {
-    return !Number.isNaN(parseInt(str));
+    return !Number.isNaN(parseInt(str, 10));
   }
 }

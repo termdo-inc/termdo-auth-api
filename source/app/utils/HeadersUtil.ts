@@ -44,15 +44,15 @@ export class HeadersUtil implements IUtil {
       return false;
     }
     if (
-      !Object.entries(obj).every(([key, value]) => {
-        if (typeof key !== "string") {
+      !Object.entries(obj).every(([objKey, value]) => {
+        if (typeof objKey !== "string") {
           return false;
         }
         return (
-          value === undefined ||
-          typeof value === "string" ||
-          (Array.isArray(value) &&
-            value.every((item) => typeof item === "string"))
+          value ??
+          (typeof value === "string" ||
+            (Array.isArray(value) &&
+              value.every((item) => typeof item === "string")))
         );
       })
     ) {
@@ -62,15 +62,12 @@ export class HeadersUtil implements IUtil {
     if (!(key.toLowerCase() in blueprint)) {
       return false;
     }
-    if (blueprint[key.toLowerCase()] === undefined) {
+    if (blueprint[key.toLowerCase()]) {
       return false;
     }
     if (type === "string") {
       return typeof blueprint[key.toLowerCase()] === "string";
     }
-    if (type === "string[]") {
-      return Array.isArray(blueprint[key.toLowerCase()]);
-    }
-    return true;
+    return Array.isArray(blueprint[key.toLowerCase()]);
   }
 }

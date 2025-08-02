@@ -15,7 +15,7 @@ export class SignupProvider implements IProvider {
     );
   }
 
-  public readonly getAccountByUsername: typeof this.accountProvider.getAccountByUsername;
+  public readonly getAccountByUsername: AccountProvider["getAccountByUsername"];
 
   public async createAccount(
     username: string,

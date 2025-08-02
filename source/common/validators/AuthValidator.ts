@@ -10,7 +10,7 @@ export class AuthValidator implements IValidator {
         new ClientError(ClientErrorCode.INVALID_AUTHORIZATION_HEADER),
       );
     }
-    const token: unknown = data.split(" ")[1];
+    const [, token]: unknown[] = data.split(" ");
     if (typeof token !== "string") {
       validationErrors.push(
         new ClientError(ClientErrorCode.INVALID_AUTHORIZATION_HEADER),

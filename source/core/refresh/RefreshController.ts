@@ -11,11 +11,11 @@ import { ResponseUtil } from "../../app/utils/ResponseUtil.js";
 import { AuthModule } from "../../modules/auth/module.js";
 
 export class RefreshController implements IController {
-  public async getRefresh(
+  public getRefresh(
     _: ExpressRequest,
     res: ControllerResponse<null, Token | null>,
     next: ExpressNextFunction,
-  ): Promise<typeof res | void> {
+  ): typeof res | void {
     try {
       // >----------< AUTHORIZATION >----------<
       const payload = PayloadHelper.getPayload(res);
@@ -26,10 +26,10 @@ export class RefreshController implements IController {
         null,
         [],
         null,
-        await AuthModule.instance.refresh(payload),
+        AuthModule.instance.refresh(payload),
       );
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 }

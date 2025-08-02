@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-parameters */
 import type { PoolClient } from "pg";
 import type {
   ControllerResponse,

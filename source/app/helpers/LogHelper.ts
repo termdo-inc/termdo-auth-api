@@ -67,7 +67,7 @@ export class LogHelper implements IHelper {
   }
 
   private static getTime(date: Date): string {
-    return date.toISOString().split(".")[0] + "Z";
+    return `${date.toISOString().split(".")[0]}Z`;
   }
 
   // >---------------------------------------< ASCII CODES >---------------------------------------<
@@ -78,48 +78,48 @@ export class LogHelper implements IHelper {
   private static readonly RESET = `${this.BEGIN}0${this.END}`;
 
   // ASCII Style codes
-  // private static readonly BOLD = 1;
+  // Private static readonly BOLD = 1;
   private static readonly DIM = 2;
-  // private static readonly ITALIC = 3;
-  // private static readonly UNDERLINE = 4;
-  // private static readonly BLINK = 5;
-  // private static readonly REVERSE = 7;
-  // private static readonly HIDDEN = 8;
-  // private static readonly STRIKE = 9;
+  // Private static readonly ITALIC = 3;
+  // Private static readonly UNDERLINE = 4;
+  // Private static readonly BLINK = 5;
+  // Private static readonly REVERSE = 7;
+  // Private static readonly HIDDEN = 8;
+  // Private static readonly STRIKE = 9;
 
   // ASCII Color codes
-  // private static readonly FG_BLACK = 30;
+  // Private static readonly FG_BLACK = 30;
   private static readonly FG_RED = 31;
   private static readonly FG_GREEN = 32;
   private static readonly FG_YELLOW = 33;
   private static readonly FG_BLUE = 34;
   private static readonly FG_MAGENTA = 35;
   private static readonly FG_CYAN = 36;
-  // private static readonly FG_WHITE = 37;
+  // Private static readonly FG_WHITE = 37;
   private static readonly FG_DEFAULT = 39;
-  // private static readonly FG_BR_BLACK = 90;
-  // private static readonly FG_BR_RED = 91;
-  // private static readonly FG_BR_GREEN = 92;
-  // private static readonly FG_BR_YELLOW = 93;
-  // private static readonly FG_BR_BLUE = 94;
-  // private static readonly FG_BR_MAGENTA = 95;
+  // Private static readonly FG_BR_BLACK = 90;
+  // Private static readonly FG_BR_RED = 91;
+  // Private static readonly FG_BR_GREEN = 92;
+  // Private static readonly FG_BR_YELLOW = 93;
+  // Private static readonly FG_BR_BLUE = 94;
+  // Private static readonly FG_BR_MAGENTA = 95;
   private static readonly FG_BR_CYAN = 96;
-  // private static readonly FG_BR_WHITE = 97;
-  // private static readonly BG_BLACK = 40;
-  // private static readonly BG_RED = 41;
-  // private static readonly BG_GREEN = 42;
-  // private static readonly BG_YELLOW = 43;
-  // private static readonly BG_BLUE = 44;
-  // private static readonly BG_MAGENTA = 45;
-  // private static readonly BG_CYAN = 46;
-  // private static readonly BG_WHITE = 47;
-  // private static readonly BG_DEFAULT = 49;
-  // private static readonly BG_BR_BLACK = 100;
-  // private static readonly BG_BR_RED = 101;
-  // private static readonly BG_BR_GREEN = 102;
-  // private static readonly BG_BR_YELLOW = 103;
-  // private static readonly BG_BR_BLUE = 104;
-  // private static readonly BG_BR_MAGENTA = 105;
-  // private static readonly BG_BR_CYAN = 106;
-  // private static readonly BG_BR_WHITE = 107;
+  // Private static readonly FG_BR_WHITE = 97;
+  // Private static readonly BG_BLACK = 40;
+  // Private static readonly BG_RED = 41;
+  // Private static readonly BG_GREEN = 42;
+  // Private static readonly BG_YELLOW = 43;
+  // Private static readonly BG_BLUE = 44;
+  // Private static readonly BG_MAGENTA = 45;
+  // Private static readonly BG_CYAN = 46;
+  // Private static readonly BG_WHITE = 47;
+  // Private static readonly BG_DEFAULT = 49;
+  // Private static readonly BG_BR_BLACK = 100;
+  // Private static readonly BG_BR_RED = 101;
+  // Private static readonly BG_BR_GREEN = 102;
+  // Private static readonly BG_BR_YELLOW = 103;
+  // Private static readonly BG_BR_BLUE = 104;
+  // Private static readonly BG_BR_MAGENTA = 105;
+  // Private static readonly BG_BR_CYAN = 106;
+  // Private static readonly BG_BR_WHITE = 107;
 }

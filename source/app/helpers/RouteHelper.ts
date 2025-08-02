@@ -13,10 +13,7 @@ import type { IResponse } from "../interfaces/IResponse.js";
 import { CorruptedRouteInfoError } from "../schemas/ServerError.js";
 
 export class RouteHelper implements IHelper {
-  private static readonly routeInfo = new Map<
-    string,
-    Pair<RouteType, Method[]>
-  >();
+  private static readonly routes = new Map<string, Pair<RouteType, Method[]>>();
 
   public static buildRoute<D extends IResponse | null, T extends Token | null>(
     router: ExpressRouter,
@@ -27,10 +24,10 @@ export class RouteHelper implements IHelper {
       req: ExpressRequest,
       res: ControllerResponse<D, T>,
       next: ExpressNextFunction,
-    ) => Promise<typeof res | void>,
+    ) => Promise<typeof res | void> | typeof res | void,
   ): void {
     const apiRoute = this.concatRoute(fullRoute);
-    if (!RouteHelper.routeInfo.has(apiRoute)) {
+    if (!RouteHelper.routes.has(apiRoute)) {
       RouteHelper.addRoute(apiRoute, type);
     }
     switch (method) {
@@ -50,16 +47,18 @@ export class RouteHelper implements IHelper {
         router.delete(fullRoute.route, handler);
         RouteHelper.addMethod(apiRoute, Method.DELETE);
         break;
+      default:
+        throw new Error(`Unsupported HTTP method: ${method}`);
     }
   }
 
   public static addRoute(route: string, type: RouteType): void {
-    RouteHelper.routeInfo.set(route, [type, []]);
+    RouteHelper.routes.set(route, [type, []]);
   }
 
   public static addMethod(route: string, method: Method): void {
-    const routeMethods = RouteHelper.routeInfo.get(route);
-    if (routeMethods === undefined || routeMethods.length !== 2) {
+    const routeMethods = RouteHelper.routes.get(route);
+    if (routeMethods === undefined) {
       throw new CorruptedRouteInfoError(route);
     }
     routeMethods[1].push(method);
@@ -68,7 +67,7 @@ export class RouteHelper implements IHelper {
   public static getEndpoints(): Promise<string[]> {
     return new Promise((resolve) => {
       const endpoints: string[] = [];
-      RouteHelper.routeInfo.forEach(
+      RouteHelper.routes.forEach(
         (info: Pair<string, Method[]>, route: string) => {
           const methodsList = info[1].map((method) => `'${method}'`).join(", ");
           endpoints.push(
@@ -81,29 +80,26 @@ export class RouteHelper implements IHelper {
   }
 
   public static getMethods(url: string): Method[] | null {
-    const routeParts = url.split("/");
+    const urlParts = url.split("/");
     let methods: Method[] | null = null;
-    this.routeInfo.forEach((info: Pair<string, Method[]>, apiRoute: string) => {
-      const apiRouteParts = apiRoute
-        .split("/")
-        .filter((part: string) => part !== "");
-      if (apiRouteParts.length !== routeParts.length) {
-        return;
-      }
-      let isMatch = true;
-      apiRouteParts.forEach((apiRoutePart: string, index: number) => {
-        if (apiRoutePart !== routeParts[index]) {
-          if (!apiRoutePart.startsWith(":")) {
+    for (const [route, info] of this.routes) {
+      const routeParts = route.split("/").filter((part) => part !== "");
+      if (urlParts.length === routeParts.length) {
+        let isMatch = true;
+        for (let i = 0; i < urlParts.length; i++) {
+          const urlPart = urlParts[i];
+          const routePart = routeParts[i]!;
+          if (urlPart !== routePart && !routePart.startsWith(":")) {
             isMatch = false;
-            return;
+            break;
           }
         }
-      });
-      if (isMatch) {
-        methods = info[1];
-        return;
+        if (isMatch) {
+          methods = info[1];
+          break;
+        }
       }
-    });
+    }
     return methods;
   }
 

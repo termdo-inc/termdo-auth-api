@@ -1,6 +1,6 @@
 export type Pair<T, U> = [T, U];
 
-export type FullRoute = {
+export interface FullRoute {
   baseRoute: string;
   route: string;
-};
+}

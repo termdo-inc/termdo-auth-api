@@ -2,16 +2,6 @@ import { AccountRules } from "../../common/rules/AccountRules.js";
 import { TokenConstants } from "../constants/TokenConstants.js";
 import type { IResponse } from "../interfaces/IResponse.js";
 
-export class ClientError implements IResponse {
-  public readonly code: number;
-  public readonly message: string;
-
-  public constructor(clientErrorCode: ClientErrorCode) {
-    this.code = clientErrorCode;
-    this.message = clientErrorMessages[clientErrorCode];
-  }
-}
-
 export enum ClientErrorCode {
   // CONTRACT ERRORS (1XXXX - 2XXXX)
   //  *  1XXXX: Schema errors
@@ -111,3 +101,13 @@ const clientErrorMessages: Record<ClientErrorCode, string> = {
   [ClientErrorCode.RESOURCE_NOT_FOUND]:
     "The requested resource couldn't be found.",
 };
+
+export class ClientError implements IResponse {
+  public readonly code: number;
+  public readonly message: string;
+
+  public constructor(clientErrorCode: ClientErrorCode) {
+    this.code = clientErrorCode;
+    this.message = clientErrorMessages[clientErrorCode];
+  }
+}

@@ -20,7 +20,8 @@ export class MethodMiddleware implements IMiddleware {
     try {
       const routeMethods = RouteHelper.getMethods(req.originalUrl);
       if (routeMethods === null) {
-        return next();
+        next();
+        return;
       }
       if (!Object.values(Method).includes(req.method.toUpperCase() as Method)) {
         throw new UnexpectedMethodError(req.method);
@@ -32,11 +33,10 @@ export class MethodMiddleware implements IMiddleware {
           null,
           [new ClientError(ClientErrorCode.METHOD_NOT_ALLOWED)],
         );
-      } else {
-        return next();
       }
+      next();
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 }

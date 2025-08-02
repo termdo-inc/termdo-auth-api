@@ -24,8 +24,8 @@ export class FailureMiddleware implements IMiddleware {
         new ServerError(error),
         [],
       );
-    } catch (error) {
-      return next(error);
+    } catch (error2) {
+      next(error2);
     }
   }
 }

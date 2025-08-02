@@ -52,10 +52,10 @@ export class LoginController implements IController {
         out.serverError,
         out.clientErrors,
         out.data,
-        await AuthModule.instance.generate({ accountId: out.data.accountId }),
+        AuthModule.instance.generate({ accountId: out.data.accountId }),
       );
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 }

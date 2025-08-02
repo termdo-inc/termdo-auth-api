@@ -2,7 +2,7 @@ name: termdo
 
 services:
   auth-api:
-    build: Dockerfile
+    build: .
     restart: unless-stopped
     env_file: .env
 

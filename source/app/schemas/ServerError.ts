@@ -8,7 +8,7 @@ export class ServerError implements IResponse {
   public constructor(e: Error) {
     this.name = e.name;
     this.message = e.message;
-    this.stackTrace = e.stack || null;
+    this.stackTrace = e.stack ?? null;
   }
 }
 

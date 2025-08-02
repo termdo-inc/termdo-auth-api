@@ -1,5 +1,5 @@
 export type Token = string;
 
-export type TokenPayload = {
+export interface TokenPayload {
   accountId: number;
-};
+}

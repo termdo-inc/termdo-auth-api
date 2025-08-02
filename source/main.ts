@@ -22,19 +22,19 @@ app.use(LoggerMiddleware.log.bind(LoggerMiddleware));
 
 // AUTHENTICATING ROUTES
 app.use(
-  // login
+  // /login
   LoginBuilder.BASE_ROUTE,
   new LoginBuilder().router,
 );
 app.use(
-  // signup
+  // /signup
   SignupBuilder.BASE_ROUTE,
   new SignupBuilder().router,
 );
 
 // PRIVATE ROUTES
 app.use(
-  // refresh
+  // /refresh
   RefreshBuilder.BASE_ROUTE,
   AuthMiddleware.verifyAuth().bind(AuthMiddleware),
   new RefreshBuilder().router,

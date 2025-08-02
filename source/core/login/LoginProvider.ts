@@ -8,5 +8,5 @@ export class LoginProvider implements IProvider {
     );
   }
 
-  public readonly getAccountByUsername: typeof this.accountProvider.getAccountByUsername;
+  public readonly getAccountByUsername: AccountProvider["getAccountByUsername"];
 }

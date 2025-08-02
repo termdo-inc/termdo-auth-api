@@ -8,5 +8,5 @@ export class AuthProvider implements IProvider {
     );
   }
 
-  public readonly getAccount: typeof this.accountProvider.getAccount;
+  public readonly getAccount: AccountProvider["getAccount"];
 }

@@ -39,11 +39,12 @@ export class AuthMiddleware {
         }
         // Payload extraction
         const payload = AuthModule.instance.getPayload(token.data);
+        // eslint-disable-next-line require-atomic-updates
         res.locals[LocalsConstants.TOKEN_PAYLOAD] = payload;
         // >----------< CONTINUE >----------<
-        return next();
+        next();
       } catch (error) {
-        return next(error);
+        next(error);
       }
     };
   }

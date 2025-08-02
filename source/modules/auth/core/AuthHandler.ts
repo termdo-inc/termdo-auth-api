@@ -35,28 +35,26 @@ export class AuthHandler implements IHandler {
       if (error instanceof jwt.JsonWebTokenError) {
         if (error instanceof jwt.TokenExpiredError) {
           return [new ClientError(ClientErrorCode.EXPIRED_TOKEN)];
-        } else {
-          return [new ClientError(ClientErrorCode.INVALID_TOKEN)];
         }
-      } else {
-        // Unknown error
-        throw error;
+        return [new ClientError(ClientErrorCode.INVALID_TOKEN)];
       }
+      // Unknown error
+      throw error;
     }
   }
 
   /**
    * Call AuthHandler.verify before calling this method.
    */
-  public getPayload(token: Token): TokenPayload {
+  public static getPayload(token: Token): TokenPayload {
     return jwt.verify(token, AuthConstants.JWT_SECRET) as TokenPayload;
   }
 
-  public async generate(payload: TokenPayload): Promise<Token> {
+  public static generate(payload: TokenPayload): Token {
     return TokenHelper.generateToken(payload);
   }
 
-  public async refresh(payload: TokenPayload): Promise<Token> {
-    return await this.generate(payload);
+  public static refresh(payload: TokenPayload): Token {
+    return AuthHandler.generate(payload);
   }
 }
