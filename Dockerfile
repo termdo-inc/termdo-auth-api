@@ -1,7 +1,6 @@
 # >-----< BASE STAGE >-----< #
 
 FROM node:24.4-alpine AS base
-
 ENV CI=true
 
 RUN \
@@ -42,6 +41,8 @@ RUN \
 FROM base AS runner
 
 USER appuser
+
+ENV NODE_ENV=production
 
 WORKDIR /app/
 
