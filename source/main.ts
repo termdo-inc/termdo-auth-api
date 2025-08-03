@@ -50,7 +50,7 @@ app.use(FailureMiddleware.serverFailure.bind(FailureMiddleware));
 // Tests
 void PoolTest.run();
 
-// Server
+// Start app
 app.listen(AppConfig.PORT, (): void => {
   LogHelper.progress(`Server listening on port ${AppConfig.PORT}...`);
 });
