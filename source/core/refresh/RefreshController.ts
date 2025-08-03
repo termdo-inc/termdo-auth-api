@@ -6,26 +6,42 @@ import type {
 } from "../../@types/wrappers.js";
 import { PayloadHelper } from "../../app/helpers/PayloadHelper.js";
 import type { IController } from "../../app/interfaces/IController.js";
-import { HttpStatus, HttpStatusCode } from "../../app/schemas/HttpStatus.js";
 import { ResponseUtil } from "../../app/utils/ResponseUtil.js";
 import { AuthModule } from "../../modules/auth/module.js";
+import { RefreshManager } from "./RefreshManager.js";
+import { RefreshResponse } from "./schemas/RefreshResponse.js";
 
 export class RefreshController implements IController {
-  public getRefresh(
+  public constructor(private readonly manager = new RefreshManager()) {}
+
+  public async getRefresh(
     _: ExpressRequest,
-    res: ControllerResponse<null, Token | null>,
+    res: ControllerResponse<RefreshResponse | null, Token | null>,
     next: ExpressNextFunction,
-  ): typeof res | void {
+  ): Promise<typeof res | void> {
     try {
       // >----------< AUTHORIZATION >----------<
       const payload = PayloadHelper.getPayload(res);
+      // >-----------< LOGIC >-----------<
+      const out = await this.manager.getRefresh(payload);
+      // >-----------< RESPONSE >-----------<
+      if (!out.httpStatus.isSuccess() || out.data === null) {
+        return ResponseUtil.controllerResponse(
+          res,
+          out.httpStatus,
+          out.serverError,
+          out.clientErrors,
+          out.data,
+          null,
+        );
+      }
       // >----------< RESPONSE >----------<
       return ResponseUtil.controllerResponse(
         res,
-        new HttpStatus(HttpStatusCode.OK),
-        null,
-        [],
-        null,
+        out.httpStatus,
+        out.serverError,
+        out.clientErrors,
+        out.data,
         AuthModule.instance.refresh(payload),
       );
     } catch (error) {

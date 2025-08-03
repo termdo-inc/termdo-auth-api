@@ -1,6 +1,7 @@
 # >-----< BASE STAGE >-----< #
 
 FROM node:24.4-alpine AS base
+
 ENV CI=true
 
 RUN \
