@@ -20,21 +20,6 @@ COPY \
 
 RUN npm clean-install
 
-# >-----< LINT STAGE >-----< #
-
-FROM base AS linter
-
-WORKDIR /app/
-
-COPY --from=installer /app/node_modules/ node_modules/
-COPY source/ source/
-COPY \
-  eslint.config.js \
-  package.json \
-  tsconfig.json ./
-
-RUN npm run lint
-
 # >-----< BUILD STAGE >-----< #
 
 FROM base AS builder

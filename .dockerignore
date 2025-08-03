@@ -6,13 +6,6 @@
 !package-lock.json
 !package.json
 
-# [+]: Lint stage
-!source/
-!source/**
-!eslint.config.js
-!package.json
-!tsconfig.json
-
 # [+]: Build stage
 !source/
 !source/**
