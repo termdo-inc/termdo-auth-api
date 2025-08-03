@@ -4,7 +4,8 @@ FROM node:24.4-alpine AS base
 
 ENV CI=true
 
-RUN addgroup --system appgroup && \
+RUN \
+  addgroup --system appgroup && \
   adduser --system --no-create-home --ingroup appgroup appuser
 
 # >-----< INSTALL STAGE >-----< #
@@ -13,8 +14,9 @@ FROM base AS installer
 
 WORKDIR /app/
 
-COPY package-lock.json .
-COPY package.json .
+COPY \
+  package-lock.json \
+  package.json ./
 
 RUN npm clean-install
 
@@ -26,9 +28,10 @@ WORKDIR /app/
 
 COPY --from=installer /app/node_modules/ node_modules/
 COPY source/ source/
-COPY eslint.config.js .
-COPY package.json .
-COPY tsconfig.json .
+COPY \
+  eslint.config.js \
+  package.json \
+  tsconfig.json ./
 
 RUN npm run lint
 
@@ -40,11 +43,13 @@ WORKDIR /app/
 
 COPY --from=installer /app/node_modules/ node_modules/
 COPY source/ source/
-COPY package.json .
-COPY tsconfig.json .
-COPY tsconfig.prod.json .
+COPY \
+  package.json \
+  tsconfig.json \
+  tsconfig.prod.json ./
 
-RUN npm run build-prod && \
+RUN \
+  npm run build-prod && \
   npm prune --omit=dev
 
 # >-----< RUN STAGE >-----< #
