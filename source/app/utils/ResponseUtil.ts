@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-parameters */
 import type { PoolClient } from "pg";
 import type {
+  AppResponse,
   ControllerResponse,
   ManagerResponse,
   MiddlewareResponse,
@@ -10,6 +10,7 @@ import type {
 import type { Token } from "../../@types/tokens.js";
 import { AppConfig } from "../configs/AppConfig.js";
 import { DbConstants } from "../constants/DbConstants.js";
+import { HeaderConstants } from "../constants/HeaderConstants.js";
 import { LogHelper } from "../helpers/LogHelper.js";
 import type { IModel } from "../interfaces/IModel.js";
 import type { IParams } from "../interfaces/IParams.js";
@@ -29,21 +30,10 @@ export class ResponseUtil implements IUtil {
     T extends TO,
   >(
     res: ControllerResponse<DO, TO>,
-    httpStatus: HttpStatus,
-    serverError: ServerError | null,
-    clientErrors: ClientError[],
-    data: D,
-    token: T,
+    body: AppResponse<D, T>,
     log = true,
   ): typeof res {
-    const body = {
-      host: AppConfig.HOST,
-      httpStatus,
-      serverError,
-      clientErrors,
-      data,
-      token,
-    };
+    res.setHeader(HeaderConstants.HOST_NAME_KEY, AppConfig.HOST_NAME);
     if (log) {
       if (body.clientErrors.length > 0) {
         LogHelper.warning("(Client) Errors occurred:");
@@ -54,7 +44,7 @@ export class ResponseUtil implements IUtil {
       LogHelper.log("Controller response was:");
       LogHelper.detail(JSON.stringify(body, null, 2), 1);
     }
-    return res.status(httpStatus.code).send(body);
+    return res.status(body.httpStatus.code).send(body);
   }
 
   public static parserResponse<T extends IRequest | IParams | IQueries | null>(
@@ -73,14 +63,13 @@ export class ResponseUtil implements IUtil {
     serverError: ServerError | null,
     clientErrors: ClientError[],
   ): typeof res {
-    return this.controllerResponse(
-      res,
+    return this.controllerResponse(res, {
       httpStatus,
       serverError,
       clientErrors,
-      null,
-      null,
-    );
+      data: null,
+      token: null,
+    });
   }
 
   public static managerResponse<D extends IResponse | null>(

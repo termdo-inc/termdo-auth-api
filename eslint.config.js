@@ -36,6 +36,7 @@ export default tseslint.config([
       "@typescript-eslint/no-extraneous-class": "off",
       "@typescript-eslint/no-invalid-void-type": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-unnecessary-type-parameters": "off",
       "@typescript-eslint/restrict-template-expressions": "off",
       "class-methods-use-this": "off",
       "consistent-return": "off",

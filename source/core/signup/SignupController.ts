@@ -24,36 +24,24 @@ export class SignupController implements IController {
       // >----------< VALIDATION >----------<
       const request = SignupRequest.parse(req);
       if (request.clientErrors.length > 0 || request.data === null) {
-        return ResponseUtil.controllerResponse(
-          res,
-          new HttpStatus(HttpStatusCode.BAD_REQUEST),
-          null,
-          request.clientErrors,
-          null,
-          null,
-        );
+        return ResponseUtil.controllerResponse(res, {
+          httpStatus: new HttpStatus(HttpStatusCode.BAD_REQUEST),
+          serverError: null,
+          clientErrors: request.clientErrors,
+          data: null,
+          token: null,
+        });
       }
       // >-----------< LOGIC >-----------<
       const out = await this.manager.postSignup(request.data);
       // >-----------< RESPONSE >-----------<
       if (!out.httpStatus.isSuccess() || out.data === null) {
-        return ResponseUtil.controllerResponse(
-          res,
-          out.httpStatus,
-          out.serverError,
-          out.clientErrors,
-          out.data,
-          null,
-        );
+        return ResponseUtil.controllerResponse(res, { ...out, token: null });
       }
-      return ResponseUtil.controllerResponse(
-        res,
-        out.httpStatus,
-        out.serverError,
-        out.clientErrors,
-        out.data,
-        AuthModule.instance.generate({ accountId: out.data.accountId }),
-      );
+      return ResponseUtil.controllerResponse(res, {
+        ...out,
+        token: AuthModule.instance.generate({ accountId: out.data.accountId }),
+      });
     } catch (error) {
       next(error);
     }

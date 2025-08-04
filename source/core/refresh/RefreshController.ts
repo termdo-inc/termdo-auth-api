@@ -26,24 +26,13 @@ export class RefreshController implements IController {
       const out = await this.manager.getRefresh(payload);
       // >-----------< RESPONSE >-----------<
       if (!out.httpStatus.isSuccess() || out.data === null) {
-        return ResponseUtil.controllerResponse(
-          res,
-          out.httpStatus,
-          out.serverError,
-          out.clientErrors,
-          out.data,
-          null,
-        );
+        return ResponseUtil.controllerResponse(res, { ...out, token: null });
       }
       // >----------< RESPONSE >----------<
-      return ResponseUtil.controllerResponse(
-        res,
-        out.httpStatus,
-        out.serverError,
-        out.clientErrors,
-        out.data,
-        AuthModule.instance.refresh(payload),
-      );
+      return ResponseUtil.controllerResponse(res, {
+        ...out,
+        token: AuthModule.instance.refresh(payload),
+      });
     } catch (error) {
       next(error);
     }

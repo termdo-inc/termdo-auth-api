@@ -9,17 +9,24 @@ import type { ServerError } from "../app/schemas/ServerError.js";
 import type { Token } from "./tokens.js";
 import type { ExpressResponse } from "./wrappers.d.ts";
 
-export type ControllerResponse<
-  D extends IResponse | null,
-  T extends Token | null,
-> = ExpressResponse<{
-  host: string;
+export type ProviderResponse<D extends IModel | boolean | null> = D;
+
+export interface ManagerResponse<D extends IResponse | null> {
   httpStatus: HttpStatus;
   serverError: ServerError | null;
   clientErrors: ClientError[];
   data: D;
+}
+
+export interface AppResponse<D extends IResponse | null, T extends Token | null>
+  extends ManagerResponse<D> {
   token: T;
-}>;
+}
+
+export type ControllerResponse<
+  D extends IResponse | null,
+  T extends Token | null,
+> = ExpressResponse<AppResponse<D, T>>;
 
 export interface ParserResponse<
   T extends IRequest | IParams | IQueries | null,
@@ -29,12 +36,3 @@ export interface ParserResponse<
 }
 
 export type MiddlewareResponse = ControllerResponse<null, null>;
-
-export interface ManagerResponse<D extends IResponse | null> {
-  httpStatus: HttpStatus;
-  serverError: ServerError | null;
-  clientErrors: ClientError[];
-  data: D;
-}
-
-export type ProviderResponse<D extends IModel | boolean | null> = D;

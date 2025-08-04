@@ -4,7 +4,7 @@ import type {
   ExpressRequest,
 } from "../../@types/wrappers.js";
 import { AuthModule } from "../../modules/auth/module.js";
-import { LocalsConstants } from "../constants/LocalsConstants.js";
+import { LocalConstants } from "../constants/LocalConstants.js";
 import { HttpStatus, HttpStatusCode } from "../schemas/HttpStatus.js";
 import { HeadersUtil } from "../utils/HeadersUtil.js";
 import { ResponseUtil } from "../utils/ResponseUtil.js";
@@ -40,7 +40,7 @@ export class AuthMiddleware {
         // Payload extraction
         const payload = AuthModule.instance.getPayload(token.data);
         // eslint-disable-next-line require-atomic-updates
-        res.locals[LocalsConstants.TOKEN_PAYLOAD] = payload;
+        res.locals[LocalConstants.TOKEN_PAYLOAD] = payload;
         // >----------< CONTINUE >----------<
         next();
       } catch (error) {
