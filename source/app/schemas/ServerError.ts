@@ -19,16 +19,16 @@ export class UnexpectedDatabaseStateError extends Error {
   }
 }
 
-export class ModelMismatchError extends Error {
+export class RecordMismatchError extends Error {
   public constructor(public readonly model: unknown) {
     super(
-      `Server and database are not agreeing on model. The model was: \n${JSON.stringify(
+      `Server and database are not agreeing on record. The record was: \n${JSON.stringify(
         model,
         null,
         2,
       )}`,
     );
-    this.name = "ModelMismatchError";
+    this.name = "RecordMismatchError";
   }
 }
 

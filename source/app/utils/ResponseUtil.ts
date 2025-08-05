@@ -77,7 +77,19 @@ export class ResponseUtil implements IUtil {
     serverError: ServerError | null,
     clientErrors: ClientError[],
     data: D,
+    log = false,
   ): ManagerResponse<D> {
+    if (log) {
+      LogHelper.log("Manager response was:");
+      LogHelper.detail(
+        JSON.stringify(
+          { httpStatus, serverError, clientErrors, data },
+          null,
+          2,
+        ),
+        1,
+      );
+    }
     return {
       httpStatus,
       serverError,
