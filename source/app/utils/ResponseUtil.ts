@@ -33,7 +33,7 @@ export class ResponseUtil implements IUtil {
     body: AppResponse<D, T>,
     log = true,
   ): typeof res {
-    res.setHeader(HeaderConstants.HOST_NAME_KEY, AppConfig.HOST_NAME);
+    res.setHeader(HeaderConstants.HOSTNAME_KEY, AppConfig.HOST_NAME);
     if (log) {
       if (body.clientErrors.length > 0) {
         LogHelper.warning("(Client) Errors occurred:");
