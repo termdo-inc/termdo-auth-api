@@ -4,10 +4,6 @@ FROM node:24.4-alpine AS base
 
 ENV CI=true
 
-RUN \
-  addgroup --system appgroup && \
-  adduser --system --no-create-home --ingroup appgroup appuser
-
 # >-----< INSTALL STAGE >-----< #
 
 FROM base AS installer
@@ -39,15 +35,11 @@ RUN \
 
 # >-----< RUN STAGE >-----< #
 
-FROM base AS runner
-
-USER appuser
-
-ENV NODE_ENV=production
+FROM gcr.io/distroless/nodejs24-debian12:nonroot AS runner
 
 WORKDIR /app/
 
-COPY --from=builder --chown=appuser:appgroup /app/node_modules/ node_modules/
-COPY --from=builder --chown=appuser:appgroup /app/out/ out/
+COPY --from=builder /app/node_modules/ node_modules/
+COPY --from=builder /app/out/ out/
 
-ENTRYPOINT ["node", "out/main.js"]
+CMD ["out/main.js"]

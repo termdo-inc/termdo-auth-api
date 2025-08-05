@@ -5,6 +5,7 @@
     "incremental": false,
 
     /* Emit */
+    "declaration": false,
     "sourceMap": false,
     "removeComments": true
   }
