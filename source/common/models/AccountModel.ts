@@ -1,6 +1,5 @@
 import type { IModel } from "../../app/interfaces/IModel.js";
 import { ModelMismatchError } from "../../app/schemas/ServerError.js";
-import { ProtoUtil } from "../../app/utils/ProtoUtil.js";
 
 export class AccountModel implements IModel {
   protected constructor(
@@ -26,10 +25,21 @@ export class AccountModel implements IModel {
   }
 
   protected static isValidModel(data: unknown): data is AccountModel {
-    if (!ProtoUtil.isProtovalid(data) || typeof data !== "object") {
+    if (typeof data !== "object" || data === null) {
       return false;
     }
-    const model = data as AccountModel;
+    if (
+      !("account_id" in data) ||
+      !("username" in data) ||
+      !("password" in data)
+    ) {
+      return false;
+    }
+    const model = {
+      accountId: data.account_id,
+      username: data.username,
+      password: data.password,
+    } as AccountModel;
     return (
       typeof model.accountId === "number" &&
       typeof model.username === "string" &&
