@@ -1,5 +1,5 @@
 import type { IConstants } from "../interfaces/IConstants.js";
 
 export class HeaderConstants implements IConstants {
-  public static readonly HOST_NAME_KEY = "X-Host-Name";
+  public static readonly HOSTNAME_KEY = "X-Hostname";
 }
