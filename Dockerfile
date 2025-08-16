@@ -1,6 +1,6 @@
 # >-----< BASE STAGE >-----< #
 
-FROM node:24.4-alpine AS base
+FROM node:24.6-alpine AS base
 
 ENV CI=true
 
@@ -36,6 +36,8 @@ RUN \
 # >-----< RUN STAGE >-----< #
 
 FROM gcr.io/distroless/nodejs24-debian12:nonroot AS runner
+
+ENV NODE_ENV=production
 
 WORKDIR /app/
 

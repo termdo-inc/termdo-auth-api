@@ -16,7 +16,7 @@
     /* Emit */
     "outDir": "out/",
 
-    /* Interop Constraints */
+    /* Interoperability */
     "verbatimModuleSyntax": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
