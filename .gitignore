@@ -26,6 +26,9 @@
 !tsconfig.json
 !tsconfig.prod.json
 
+# [+]: Environment files
+!.env.example
+
 # [+]: Docker files
 !.dockerignore
 !compose.yaml
