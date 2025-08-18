@@ -14,6 +14,9 @@ import { SignupBuilder } from "./core/signup/SignupBuilder.js";
 // App
 const app: Express = express();
 
+// Configurations
+app.disable("x-powered-by");
+
 // Pre-Middlewares
 app.use(express.json());
 app.use(LoggerMiddleware.log.bind(LoggerMiddleware));
