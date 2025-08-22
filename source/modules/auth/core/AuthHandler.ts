@@ -51,7 +51,7 @@ export class AuthHandler implements IHandler {
   }
 
   public static generate(payload: TokenPayload): Token {
-    return TokenHelper.generateToken(payload);
+    return TokenHelper.generateToken(payload.accountId);
   }
 
   public static refresh(payload: TokenPayload): Token {

@@ -4,7 +4,8 @@ import type { IHelper } from "../../../../app/interfaces/IHelper.js";
 import { AuthConstants } from "../constants/AuthConstants.js";
 
 export class TokenHelper implements IHelper {
-  public static generateToken(payload: TokenPayload): Token {
+  public static generateToken(accountId: number): Token {
+    const payload: TokenPayload = { accountId };
     return jwt.sign(payload, AuthConstants.JWT_SECRET, {
       expiresIn: AuthConstants.TOKEN_EXPIRATION_TIME,
     });
