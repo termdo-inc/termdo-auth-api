@@ -39,7 +39,7 @@
     "lint": "eslint .",
     "build-dev": "tsc --build tsconfig.dev.json",
     "build-prod": "tsc --build tsconfig.prod.json",
-    "test": "echo -e \"[🔵]: No tests defined.\n\"",
+    "test": "echo \"[🔵]: No tests defined.\"",
     "dev": "node --env-file=.env out/main.js"
   }
 }
