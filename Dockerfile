@@ -33,6 +33,12 @@ RUN \
   npm run build-prod && \
   npm prune --omit=dev
 
+# >-----< TEST STAGE >-----< #
+
+FROM builder AS tester
+
+RUN npm run test
+
 # >-----< RUN STAGE >-----< #
 
 FROM gcr.io/distroless/nodejs24-debian12:nonroot AS runner
