@@ -1,6 +1,6 @@
 {
   "name": "termdo-auth-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Handles user authentication token management and internal service authorization",
   "homepage": "https://github.com/termdo-inc/termdo-auth-api#readme",
   "bugs": {
